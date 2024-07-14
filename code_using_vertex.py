@@ -116,7 +116,6 @@ def main():
                 st.markdown(response.text)
                 
                 genai.delete_file(image_file.name)
-                print(f'Deleted file {image_file.uri}')
            
     elif typepdf == "Video, mp4 file":
         video_file_name = st.file_uploader("Upload your video")
@@ -141,7 +140,6 @@ def main():
                 st.markdown(response.text)
                 
                 genai.delete_file(video_file.name)
-                print(f'Deleted file {video_file.uri}')
       
     elif typepdf == "Audio files":
         audio_file_name = st.file_uploader("Upload your audio")
@@ -166,7 +164,6 @@ def main():
                 st.markdown(response.text)
                 
                 genai.delete_file(audio_file.name)
-                print(f'Deleted file {audio_file.uri}')
         
 
 if __name__ == '__main__':
