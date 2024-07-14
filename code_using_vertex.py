@@ -56,7 +56,7 @@ def main():
         uploaded_files = st.file_uploader("Choose 1 or more files",  accept_multiple_files=True)
            
         if uploaded_files:
-            path_to_files = '/Users/avi_patel/Documents/citidocs/'
+            path_to_files = '/Users/....'
             merger = PdfMerger()
             for file in uploaded_files:
                     file_name=file.name
@@ -93,7 +93,7 @@ def main():
     elif typepdf == "Images":
         image_file_name = st.file_uploader("Upload your image file.",)
         if image_file_name:
-            path3 = '/Users/avi_patel/Documents/citidocs/'
+            path3 = '/Users/.....'
             fpath = image_file_name.name
             fpath2 = (os.path.join(path3, fpath))
             image_file = genai.upload_file(path=fpath2)
@@ -121,32 +121,20 @@ def main():
     elif typepdf == "Video, mp4 file":
         video_file_name = st.file_uploader("Upload your video")
         if video_file_name:
-            path3 = '/Users/avi_patel/Documents/citidocs'
+            path3 = '/Users/....'
             fpath = video_file_name.name
-            #st.write(fpath)
             fpath2 = (os.path.join(path3, fpath))
-            #st.write("Uploading file...")
             video_file = genai.upload_file(path=fpath2)
-            #st.write(f"Completed upload: {video_file.uri}")
             
             while video_file.state.name == "PROCESSING":
-                #st.write('.')
                 time.sleep(10)
                 video_file = genai.get_file(video_file.name)
             if video_file.state.name == "FAILED":
               raise ValueError(video_file.state.name)
             
-            #file = genai.get_file(name=video_file.name)
-            #st.write(f"Retrieved file '{file.display_name}' as: {video_file.uri}")
-            
-            # Create the prompt.
-            prompt3 = st.text_input("Enter your prompt.") #"what is said in this video in the first 20 seconds?"
+            prompt3 = st.text_input("Enter your prompt.") 
             if prompt3:
-                
-                # The Gemini 1.5 models are versatile and work with multimodal prompts
                 model = genai.GenerativeModel(model_name=model)
-                
-                # Make the LLM request.
                 st.write("Making LLM inference request...")
                 response = model.generate_content([video_file, prompt3],
                                                   request_options={"timeout": 600})
@@ -158,7 +146,7 @@ def main():
     elif typepdf == "Audio files":
         audio_file_name = st.file_uploader("Upload your audio")
         if audio_file_name:
-            path3 = '/Users/avi_patel/Documents/'
+            path3 = '/Users/....'
             fpath = audio_file_name.name
 
             fpath2 = (os.path.join(path3, fpath))
@@ -170,7 +158,7 @@ def main():
             if audio_file.state.name == "FAILED":
               raise ValueError(audio_file.state.name)
 
-            prompt3 = st.text_input("Enter your prompt.") #"what is said in this video in the first 20 seconds?"
+            prompt3 = st.text_input("Enter your prompt.") 
             if prompt3:
                 model = genai.GenerativeModel(model_name=model)
                 response = model.generate_content([audio_file, prompt3],
