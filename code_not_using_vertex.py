@@ -72,42 +72,29 @@ def main():
     model, temperature, top_p,  max_tokens = get_llminfo()
     
     if typepdf == "PDF files":
-        uploaded_files = st.file_uploader("Choose 1 or more files",  accept_multiple_files=True)
+        uploaded_files = st.file_uploader("Choose 1 or more PDF", type='pdf', accept_multiple_files=True)
            
         if uploaded_files:
-            path_to_files = '/Users/....'
-            merger = PdfMerger()
-            for file in uploaded_files:
-                    file_name=file.name
-                    merger.append(path_to_files + file_name)
-
-            os.chdir(path_to_files)
-            fullfile = "merged_all_pages.pdf"
-            merger.write(fullfile)
-            merger.close()
-            combined_file = os.path.join(path_to_files,fullfile)
-            st.write(combined_file)
-            with open(combined_file, "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read()).decode()
-                   
-            file_1 = Part.from_data(
-                mime_type="application/pdf",
-                data=base64.b64decode(encoded_string))
+            text = ""
+            for pdf in uploaded_files:
+                pdf_reader = PdfReader(pdf)
+                for page in pdf_reader.pages:
+                    text += page.extract_text()
 
             generation_config = {
               "temperature": temperature,
               "top_p": top_p,
               "max_output_tokens": max_tokens,
-              #"response_mime_type": "text/plain",
+              "response_mime_type": "text/plain",
               }
-            model = GenerativeModel(
+            model = genai.GenerativeModel(
               model_name=model,
               generation_config=generation_config,)
-            st.write(f"Total tokens submitted: {model.count_tokens(file_1)}") 
+            st.write(model.count_tokens(text)) 
             question = st.text_input("Enter your question and hit return.")
             if question:
-                response = model.generate_content([question, file_1])
-                st.markdown(response.text)
+                response = model.generate_content([question, text])
+                st.write(response.text)
                 
     elif typepdf == "Images":
         image_file_name = st.file_uploader("Upload your image file.",)
