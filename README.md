@@ -1,5 +1,5 @@
-** NOTE:  GEMINI 1.5-001 NO LONGER AVAILABLE AS OF 5/24/25, and -002 VERSION WILL BE GONE SEP 2025! 
-**CHECK OUT MY VIDEO ON 2.0 FLASH
+** NOTE:  GEMINI 1.5 -001 NO LONGER AVAILABLE AS OF 5/24/25, and -002 VERSION WILL BE GONE SEP 2025! 
+**CHECK OUT MY VIDEO ON 2.0 FLASH to see how it works and how to get the code:  https://youtu.be/We5jYzwXVH8
 
 Chatbot without RAG!!!
 Create a streamlit app that lets you chat with any type of media file (documents, images, videos, audio).
